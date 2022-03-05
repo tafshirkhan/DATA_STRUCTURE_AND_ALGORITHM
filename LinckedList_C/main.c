@@ -151,10 +151,62 @@ void InsertNode(struct Node *p, int index, int x){
     }
 }
 
+void SortedInsert(struct Node *p, int x){
+    struct Node *t, *q=NULL;
+    t=(struct Node*)malloc(sizeof(struct Node));
+    t->data=x;
+    t->next=NULL;
+
+    if(first==NULL){
+        first=t;
+    }
+    else{
+        while(p && p->data < x){
+            q=p;
+            p=p->next;
+        }
+        if(p==first){
+            t->next=first;
+            first=t;
+        }
+        else{
+            t->next = q->next;
+            q->next=t;
+        }
+    }
+}
+
+int Delete(struct Node *p, int index){
+    struct Node *q=NULL;
+    int x=-1,i;
+    if(index < 1 || index > Count(p)){
+        return -1;
+    }
+    if(x==1){
+        q=first;
+        x=first->data;
+        first=first->next;
+        //delete q;
+        free(q);
+        return x;
+    }
+    else{
+        for(i=0; i<index-1; i++){
+            q=p;
+            p=p->next;
+        }
+        q->next=p->next;
+        x=p->data;
+        //delete p;
+        free(p);
+        return x;
+    }
+}
+
 int main()
 {
-    //int A[]={3,5,7};
-    //create(A,3);
+    int A[]={3,5,7,8,10};
+    create(A,5);
 
     /*struct Node *temp;
     temp=LenearSearch(first,15);
@@ -165,7 +217,7 @@ int main()
     else{
         printf("Key is not found");
     }*/
-    InsertNode(first,0,10);
+    printf("Deleted element is: %d\n",Delete(first,4));
     Display(first);
     return 0;
 }
