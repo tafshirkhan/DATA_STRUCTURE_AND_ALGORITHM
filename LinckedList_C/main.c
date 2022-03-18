@@ -203,10 +203,44 @@ int Delete(struct Node *p, int index){
     }
 }
 
+int isSorted(struct Node *p)
+{
+ int x=-65536;
+
+ while(p!=NULL)
+ {
+     if(p->data < x){
+        return 0;
+     }
+
+     x=p->data;
+     p=p->next;
+ }
+ return 1;
+
+}
+
+void removeDuplicate(struct Node *p){
+    struct Node *q = p->next;
+
+    while(q!=NULL){
+        if(p->data != q->data){
+            p=q;
+            q=q->next;
+        }
+        else{
+            p->next = q->next;
+            free(q);
+            q=p->next;
+        }
+    }
+}
+
+
 int main()
 {
-    int A[]={3,5,7,8,10};
-    create(A,5);
+    int A[]={10,20,20,20,30,40,50};
+    create(A,7);
 
     /*struct Node *temp;
     temp=LenearSearch(first,15);
@@ -217,7 +251,9 @@ int main()
     else{
         printf("Key is not found");
     }*/
-    printf("Deleted element is: %d\n",Delete(first,4));
+
+    removeDuplicate(first);
     Display(first);
+    printf("\n\n");
     return 0;
 }
