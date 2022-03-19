@@ -236,11 +236,55 @@ void removeDuplicate(struct Node *p){
     }
 }
 
+void ReverseListByArray(struct Node *p)
+{
+     int *A,i=0;
+     struct Node *q=p;
+
+     A=(int *)malloc(sizeof(int)*Count(p));
+
+     while(q!=NULL)
+     {
+         A[i]=q->data;
+         q=q->next;
+         i++;
+     }
+     q=p;
+     i--;
+     while(q!=NULL)
+     {
+         q->data=A[i];
+         q=q->next;
+         i--;
+     }
+}
+
+void ReverseListByPointer(struct Node *p){
+    struct Node *q = NULL, *r = NULL;
+
+    while(p!=NULL){
+        r = q;
+        q = p;
+        p=p->next;
+        q->next = r;
+    }
+    first = q;
+}
+
+void ReverseRecursively(struct Node *q, struct Node *p){
+    if(p){
+        ReverseRecursively(p, p->next);
+        p->next = q;
+    }
+    else{
+        first = q;
+    }
+}
 
 int main()
 {
-    int A[]={10,20,20,20,30,40,50};
-    create(A,7);
+    int A[]={10,20,30,40,50};
+    create(A,5);
 
     /*struct Node *temp;
     temp=LenearSearch(first,15);
@@ -252,7 +296,13 @@ int main()
         printf("Key is not found");
     }*/
 
-    removeDuplicate(first);
+    //removeDuplicate(first);
+    Display(first);
+    printf("\n\n");
+    //ReverseListByArray(first);
+    //ReverseListByPointer(first);
+    ReverseRecursively(NULL, first);
+
     Display(first);
     printf("\n\n");
     return 0;
