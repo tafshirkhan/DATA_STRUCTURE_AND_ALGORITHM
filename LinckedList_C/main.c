@@ -342,13 +342,38 @@ void Merging(struct Node *p, struct Node *q){
     }
 }
 
+int isLoop(struct Node *f){
+    struct Node *p,*q;
+    do{
+        p=p->next;
+        q=q->next;
+        q=q?q->next:q;
+    }
+    while(p && q && p!=q);
+    {
+          if(p==q){
+            return 1;
+          }
+          else{
+            return 0;
+          }
+    }
+}
 
 int main()
 {
+    struct Node *t1,*t2;
     int A[]={10,20,30,40,50};
-    int B[]={5,152,252,352,452};
+
+    //int B[]={5,152,252,352,452};
     create(A,5);
-    createSecond(B,5);
+
+    //createSecond(B,5);
+
+    //generating a loop
+    t1=first->next->next;
+    t2=first->next->next->next->next;
+    t2->next=t1;
 
     /*struct Node *temp;
     temp=LenearSearch(first,15);
@@ -370,9 +395,9 @@ int main()
     //printf("Concatenation\n");
     //Display(third);
 
-    Merging(first,second);
-    Display(third);
-    printf("\n");
+    //Merging(first,second);
+    //Display(third);
+    printf("%d\n",isLoop(first));
 
 
 
